@@ -1,7 +1,7 @@
 # -*- mode: conf -*-
-FROM postgres:9.5
+FROM postgres:9.4
 
-MAINTAINER me@nebirhos.com
+MAINTAINER tutmosisii
 
 # common settings
 ENV MAX_CONNECTIONS 500

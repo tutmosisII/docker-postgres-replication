@@ -1,29 +1,39 @@
-Postgres Streaming Replication
+Replicación en Streaming
 ==============================
 
-[![Build Status](https://travis-ci.org/nebirhos/docker-postgres-replication.svg?branch=master)](https://travis-ci.org/nebirhos/docker-postgres-replication)
-[![](https://imagelayers.io/badge/nebirhos/postgres-replication:latest.svg)](https://imagelayers.io/?images=nebirhos/postgres-replication:latest 'Get your own badge on imagelayers.io')
+Se basa en [Replicación de postgres](https://github.com/nebirhos/docker-postgres-replication)
 
-
-Enhanced version of the official Postgres image to support streaming replication
-out of the box.
-
-Postgres-replication is meant to be used with orchestration systems such as Kubernetes.
-
-
-Tags
+Etiquetas
 ----
 
-Images are automatically updated when the [official postgres image](https://hub.docker.com/_/postgres/)
-is updated.
+Las imagenes se toman de la [Imágen oficial de postgres](https://hub.docker.com/_/postgres/).
 
-Supported tags:
+Etiquetas Soportadas:
 
-* 9.6 ([9.6](https://github.com/nebirhos/docker-postgres-replication/tree/9.6))
-* 9.5, 9, latest ([9.5](https://github.com/nebirhos/docker-postgres-replication/tree/9.5))
+* 9.4 
 
+Migrar una base de datos existente a un esquema replicado
+--------------------------------------------------
 
-Run with Docker Compose
++----------------+
+|     DOCKER     |
++----------------+       +----+
+|                |       |    +-----------+
+|  POSTGRESQL    |       |    CURRENT 	  |		
+|				 +------>| PGDATA  FOLDER |
+|    MASTER		 |		 |				  |
++----------------+		 +----------------+
+		|
+	   \ /  (Wal replication)
+	    |
++----------------+
+|     DOCKER     |
++----------------+
+|  POSTGRESQL    |
+|    STANDBY	 |
++----------------+
+
+Trabajando con Docker Compose
 -----------------------
 
 ```
@@ -31,17 +41,17 @@ docker-compose up
 ```
 
 
-Run with Docker
+Trabajando con Docker
 ---------------
 
-To run with Docker, first run the Postgres master:
+Corriendo inicialmente el Nodo Master:
 
 ```
 docker run -p 127.0.0.1:5432:5432 --name postgres-master nebirhos/postgres-replication
 ```
 
 
-Then Postgres slave(s):
+Corriendo el esclavo(s) de Postgres:
 
 ```
 docker run -p 127.0.0.1:5433:5432 --link postgres-master \
@@ -51,11 +61,8 @@ docker run -p 127.0.0.1:5433:5432 --link postgres-master \
 ```
 
 
-Notes
+Notas
 -----
 
-Replication is set up at container start by putting scripts in the `/docker-entrypoint-initdb.d` folder.
-This way the original Postgres image scripts are left untouched.
-
-See [Dockerfile](Dockerfile) and [official Postgres image](https://hub.docker.com/_/postgres/)
-for custom environment variables.
+La replicación se configura con los scripts localizados en `/docker-entrypoint-initdb.d` .
+Dejando intactos los scripts originales de postgres.
