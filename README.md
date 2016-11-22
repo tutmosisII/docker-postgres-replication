@@ -21,10 +21,10 @@ Migrar una base de datos existente a un esquema replicado
 +----------------+       +----+
 |                |       |    +-----------+
 |  POSTGRESQL    |       |    CURRENT 	  |		
-|				 +------>| PGDATA  FOLDER |
-|    MASTER		 |		 |				  |
-+----------------+		 +----------------+
-		|
+|                +------>| PGDATA  FOLDER |
+|    MASTER	     |   	 |				  |
++----------------+       +----------------+
+        |
 	   \ /  (Wal replication)
 	    |
 +----------------+
