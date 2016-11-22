@@ -15,6 +15,7 @@ Etiquetas Soportadas:
 Migrar una base de datos existente a un esquema replicado
 --------------------------------------------------
 
+```
 +----------------+
 |     DOCKER     |
 +----------------+       +----+
@@ -32,6 +33,7 @@ Migrar una base de datos existente a un esquema replicado
 |  POSTGRESQL    |
 |    STANDBY	 |
 +----------------+
+```
 
 Trabajando con Docker Compose
 -----------------------
